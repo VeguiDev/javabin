@@ -1,0 +1,26 @@
+{
+  "name": "javabin",
+  "version": "1.0.0",
+  "description": "Package used to download java binaries for Linux, Windows and Mac Os.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FotoSave/javabin.git"
+  },
+  "keywords": [
+    "java",
+    "donwloader",
+    "client",
+    "binaries",
+    "nodejs"
+  ],
+  "author": "VeguiDev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FotoSave/javabin/issues"
+  },
+  "homepage": "https://github.com/FotoSave/javabin#readme"
+}
