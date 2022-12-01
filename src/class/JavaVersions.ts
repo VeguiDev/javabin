@@ -1,22 +1,41 @@
-import axios from 'axios';
+import axios from "axios";
 
 export class JavaVersion {
+  private static rawUrlLastVersionReleases =
+    "https://raw.githubusercontent.com/corretto/corretto-downloads/main/latest_links/indexmap_with_checksum.json";
+  downloadLinks: any;
 
-    private rawUrlLastVersionReleases = "https://raw.githubusercontent.com/corretto/corretto-downloads/main/latest_links/indexmap_with_checksum.json";
+  constructor(downloadlinks: any) {
+    this.downloadLinks = downloadlinks;
+  }
 
-    constructor() {
+  private static async fetchDownloadsLinks() {
+    try {
+      let downloads = await axios.get(this.rawUrlLastVersionReleases);
 
+      return downloads.data;
+    } catch (err) {
+      console.error(err);
+      return null;
     }
+  }
 
-    async fetchVersions() {
-        try {
-            let versionsRes= await fetch(this.rawUrlLastVersionReleases);
+  static async getInstance() {
+    let downlink = await this.fetchDownloadsLinks();
+    if (!downlink)
+      throw new Error(
+        "Can't get latest Amazon Corretto from Github, Check your internet connection"
+      );
+    return new JavaVersion(downlink);
+  }
 
-            return versionsRes.json();
-        } catch(err) {
-            console.error(err);
-            return null;
-        }
-    }
+  platform(platform: "windows" | "linux" | "macos") {
 
+
+
+  }
+}
+
+export class Platform {
+    
 }
