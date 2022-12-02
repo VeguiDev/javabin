@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import path from 'path';
 import fs from 'fs';
 import { JavaBinary } from './JavaVersions';
+import { DownloadCompleteEvent, Events, TickEvent } from '../interfaces/VersionDownloader';
 
 const BASEURL = "https://corretto.aws";
 
@@ -14,8 +15,7 @@ export class Downloader {
         
         let url = path.join(BASEURL, binary.resource);
         let filename = path.basename(url);
-        console.log("Downloading "+filename+" from ", url);
-        
+
         let dpath = path.join(process.cwd(), filename);
 
         let iDownload = await IncomingDownload.downloadJavaBinary(binary, binary.resource, dpath, filename);
@@ -29,27 +29,6 @@ export class Downloader {
         });
     }
 }
-export type Events = ("tick"|"complete");
-
-export interface EventI {
-    eventName:Events;
-    cb: (value:EventCallback) => void;
-
-}
-
-export interface TickEvent {
-    total:number;
-    tick:number;
-}
-export interface DownloadCompleteEvent {
-
-    path:string;
-    filename:string;
-    javaBinary:JavaBinary;
-
-}
-
-export type EventCallback = (TickEvent|DownloadCompleteEvent);
 
 export class IncomingDownload {
     private events:{
