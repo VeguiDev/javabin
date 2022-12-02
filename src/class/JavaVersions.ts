@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Downloader } from "./VersionDownloader";
 
 export type ARCHS = "x86" | "x64" | "aarch64" | "arm" | "arm-musl";
 export type PLATFORMS = "windows" | "linux" | "macos";
@@ -129,5 +130,9 @@ export class JavaBinary {
     this.checksum = checksum;
     this.checksum_sha256 = checksum_sha256;
     this.resource = resource;
+  }
+
+  async download() {
+    return await Downloader.download(this, process.cwd());
   }
 }
