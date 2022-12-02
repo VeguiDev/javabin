@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import path from 'path';
 import fs from 'fs';
 import { JavaBinary } from './JavaVersions';
-import { DownloadCompleteEvent, Events, TickEvent } from '../interfaces/VersionDownloader';
+import { DownloadCompleteEvent, Events, StartEvent, TickEvent } from '../interfaces/VersionDownloader';
 
 const BASEURL = "https://corretto.aws";
 
@@ -51,6 +51,10 @@ export class IncomingDownload {
         this.count = 0;
 
         this.writer = fs.createWriteStream(path)
+        this.trigger("start", {
+            total: this.totalLength,
+            javaBinary: this.javaBin
+        });
         data.on("data", (chunk:Buffer) => {
             this.count+=chunk.length;
             this.trigger("tick", {
@@ -86,7 +90,8 @@ export class IncomingDownload {
 
     trigger(event:"tick", value:TickEvent):void
     trigger(event:"complete", value:DownloadCompleteEvent):void
-    trigger(event:Events, value:(TickEvent|DownloadCompleteEvent)):void {
+    trigger(event:"start", value:StartEvent):void
+    trigger(event:Events, value:(TickEvent|DownloadCompleteEvent|StartEvent)):void {
         this.events.filter(e => e.eventName == event).every(e => e.cb(value));
     }
 
