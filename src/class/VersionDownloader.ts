@@ -20,13 +20,7 @@ export class Downloader {
 
         let iDownload = await IncomingDownload.downloadJavaBinary(binary, binary.resource, dpath, filename);
 
-        iDownload.on("tick", function(e) { 
-            console.log("STATUS: "+e.tick+"/"+e.total);
-        });
-
-        iDownload.on("complete", function(e) { 
-            console.log(e);
-        });
+        return iDownload;
     }
 }
 
