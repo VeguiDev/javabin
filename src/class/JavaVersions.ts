@@ -1,8 +1,7 @@
 import axios from "axios";
 import { Downloader } from "./VersionDownloader";
+import { ARCHS, EXTRAPLATFORMS, PLATFORMS } from "../interfaces/JavaVersions";
 
-export type ARCHS = "x86" | "x64" | "aarch64" | "arm" | "arm-musl";
-export type PLATFORMS = "windows" | "linux" | "macos";
 export class JavaVersion {
   private static rawUrlLastVersionReleases =
     "https://raw.githubusercontent.com/corretto/corretto-downloads/main/latest_links/indexmap_with_checksum.json";
@@ -32,9 +31,19 @@ export class JavaVersion {
     return new JavaVersion(downlink);
   }
 
+  listPlatforms() {
+    return Object.keys(this.downloadLinks);
+  }
+
+  listPlatformArchs(platform:PLATFORMS) {
+    if(!Object.keys(this.downloadLinks).includes(platform)) throw new Error(platform+" is an invalid platform!");
+
+    return Object.keys(this.downloadLinks[platform]);
+  }
+
   platform(
-    platform: "windows" | "darwin" | "win" | "linux" | "macos",
-    arch: "x86" | "x64" | "aarch64" | "arm" | "arm-musl"
+    platform: EXTRAPLATFORMS,
+    arch: ARCHS
   ) {
     switch (platform) {
       case "darwin":
@@ -64,6 +73,23 @@ export class Platform {
     this.platform = plat;
   }
 
+  listJdkVersions() {
+    if(!this.json[this.arch].jdk) return [];
+    return Object.keys(this.json[this.arch].jdk);
+  }
+
+  listJreVersions() {
+    if(!this.json[this.arch].jre) return [];
+    return Object.keys(this.json[this.arch].jre);
+  }
+
+  listVersions() {
+    return {
+      jdk: this.listJdkVersions(),
+      jre: this.listJreVersions()
+    }
+  }
+
   jdk(
     version: "8" | "11" | "15" | "16" | "17" | "18" | "19" | string | number
   ) {
@@ -90,6 +116,10 @@ export class JavaBinariesFormats {
     constructor(parent:Platform, formats:any) {
         this.formats = formats;
         this.parent = parent;
+    }
+
+    listFormats() {
+      return Object.keys(this.formats);
     }
 
     format(format:string) {
