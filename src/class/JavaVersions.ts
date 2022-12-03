@@ -31,6 +31,16 @@ export class JavaVersion {
     return new JavaVersion(downlink);
   }
 
+  listArchs() {
+    let archs:any = {};
+
+    for(let format of Object.keys(this.downloadLinks)) {
+      archs[format] = Object.keys(this.downloadLinks[format]);
+    }
+
+    return archs;
+  }
+
   listPlatforms() {
     return Object.keys(this.downloadLinks);
   }
@@ -160,6 +170,10 @@ export class JavaBinary {
     this.checksum = checksum;
     this.checksum_sha256 = checksum_sha256;
     this.resource = resource;
+  }
+
+  getDownloadUrl() {
+    return axios.defaults.baseURL+this.resource;  
   }
 
   async download() {
