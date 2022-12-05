@@ -1,3 +1,4 @@
+import { JavaBinariesFormats } from "../class/JavaBinariesFormats";
 import { JavaVersion } from "../class/JavaVersions";
 import { Platform } from "../class/Platform";
 import { PLATFORMS } from "../interfaces/JavaVersions";
@@ -11,6 +12,11 @@ describe("Checking if JavaVersion Instance works fine", () => {
 
   it("JavaVersion.getInstance returns JavaVersion", () => {
     expect(java).toBeInstanceOf(JavaVersion);
+  });
+
+  it("check if method jmc returns JavaBinariesFormats", () => {
+    expect(java.JMC("windows")).toBeInstanceOf(JavaBinariesFormats);
+    console.log(java.JMC("windows"));
   });
 
   it("checks if listPlatforms returns Array", () => {

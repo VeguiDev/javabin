@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ARCHS, EXTRAPLATFORMS, PLATFORMS } from "../interfaces/JavaVersions";
+import { JavaBinariesFormats } from "./JavaBinariesFormats";
 import { Platform } from "./Platform";
 
 export class JavaVersion {
@@ -49,6 +50,13 @@ export class JavaVersion {
       throw new Error(platform + " is an invalid platform!");
 
     return Object.keys(this.downloadLinks[platform]);
+  }
+
+  /**
+   * Returns JMC binaries (Only x64)
+   */
+  JMC(platform: PLATFORMS) {
+    return new JavaBinariesFormats(new Platform(this.downloadLinks.jmc[platform], "x64", platform), this.downloadLinks.jmc[platform].x64)
   }
 
   platform(platform: EXTRAPLATFORMS, arch: ARCHS) {
