@@ -30,7 +30,7 @@ export class JavaBinary {
     return axios.defaults.baseURL + this.resource;
   }
 
-  async download() {
-    return await Downloader.download(this, process.cwd());
+  async download(download_path?:string) {
+    return await Downloader.download(this, download_path);
   }
 }

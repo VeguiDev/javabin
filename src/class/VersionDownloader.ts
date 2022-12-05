@@ -11,12 +11,12 @@ axios.defaults.baseURL = BASEURL;
 export class Downloader {
     static client = axios;
 
-    static async download(binary:JavaBinary, downloadPath:string) {
+    static async download(binary:JavaBinary, downloadPath?:string) {
         
         let url = path.join(BASEURL, binary.resource);
         let filename = path.basename(url);
 
-        let dpath = path.join(process.cwd(), filename);
+        let dpath = downloadPath ? path.join(downloadPath, filename) : path.join(process.cwd(), filename);
 
         let iDownload = await IncomingDownload.downloadJavaBinary(binary, binary.resource, dpath, filename);
 
