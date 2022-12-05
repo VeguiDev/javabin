@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import path from 'path';
 import fs from 'fs';
-import { JavaBinary } from './JavaVersions';
+import { JavaBinary } from './JavaBinary';
 import { DownloadCompleteEvent, Events, StartEvent, TickEvent } from '../interfaces/VersionDownloader';
 
 const BASEURL = "https://corretto.aws";

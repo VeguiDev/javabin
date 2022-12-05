@@ -1,9 +1,9 @@
 import axios from "axios";
-import { Downloader } from "./VersionDownloader";
 import { ARCHS, EXTRAPLATFORMS, PLATFORMS } from "../interfaces/JavaVersions";
+import { Platform } from "./Platform";
 
 export class JavaVersion {
-  private static rawUrlLastVersionReleases =
+  static rawUrlLastVersionReleases =
     "https://raw.githubusercontent.com/corretto/corretto-downloads/main/latest_links/indexmap_with_checksum.json";
   downloadLinks: any;
 
@@ -72,111 +72,6 @@ export class JavaVersion {
   }
 }
 
-export class Platform {
-  platform: PLATFORMS;
-  arch: ARCHS;
+axios.defaults.baseURL = JavaVersion.rawUrlLastVersionReleases;
 
-  private json: any;
-  constructor(json: any, arch: ARCHS, plat: PLATFORMS) {
-    this.json = json;
-    this.arch = arch;
-    this.platform = plat;
-  }
-
-  listJdkVersions() {
-    if(!this.json[this.arch].jdk) return [];
-    return Object.keys(this.json[this.arch].jdk);
-  }
-
-  listJreVersions() {
-    if(!this.json[this.arch].jre) return [];
-    return Object.keys(this.json[this.arch].jre);
-  }
-
-  listVersions() {
-    return {
-      jdk: this.listJdkVersions(),
-      jre: this.listJreVersions()
-    }
-  }
-
-  jdk(
-    version: "8" | "11" | "15" | "16" | "17" | "18" | "19" | string | number
-  ) {
-    let formats = this.json[this.arch].jdk[version];
-
-    if (!formats) throw new Error("Invalid Version");
-    return new JavaBinariesFormats(this, formats);
-  }
-
-  jre(
-    version: "8" | "11" | "15" | "16" | "17" | "18" | "19" | string | number
-  ) {
-    let formats = this.json[this.arch].jre[version];
-
-    if (!formats) throw new Error("Invalid Version");
-    return new JavaBinariesFormats(this, formats);
-  }
-}
-
-export class JavaBinariesFormats {
-    private formats:any;
-    private parent:Platform;
-
-    constructor(parent:Platform, formats:any) {
-        this.formats = formats;
-        this.parent = parent;
-    }
-
-    listFormats() {
-      return Object.keys(this.formats);
-    }
-
-    format(format:string) {
-        if(!Object.keys(this.formats).includes(format)) throw new Error("Invalid format or not avaible");
-
-        let bin = this.formats[format];
-
-        return new JavaBinary(
-            this.parent.platform,
-            this.parent.arch,
-            format,
-            bin.checksum,
-            bin.checksum_sha256,
-            bin.resource
-        );
-    }
-}
-
-export class JavaBinary {
-  platform: PLATFORMS;
-  arch: ARCHS;
-  format: string;
-  checksum: string;
-  checksum_sha256: string;
-  resource: string;
-
-  constructor(
-    platform: PLATFORMS,
-    arch: ARCHS,
-    format: string,
-    checksum: string,
-    checksum_sha256: string,
-    resource: string
-  ) {
-    this.arch = arch;
-    this.format = format;
-    this.platform = platform;
-    this.checksum = checksum;
-    this.checksum_sha256 = checksum_sha256;
-    this.resource = resource;
-  }
-
-  getDownloadUrl() {
-    return axios.defaults.baseURL+this.resource;  
-  }
-
-  async download() {
-    return await Downloader.download(this, process.cwd());
-  }
-}
+export {axios};
