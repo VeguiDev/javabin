@@ -4,12 +4,14 @@
   "description": "Package used to download java binaries for Linux, Windows and Mac Os.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "nodemon ./src/index.ts",
     "build": "tsc",
     "prepare": "npm run build"
   },
-  "files": ["dist"],
+  "files": [
+    "dist/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FotoSave/javabin.git"
@@ -28,6 +30,8 @@
   },
   "homepage": "https://github.com/FotoSave/javabin#readme",
   "devDependencies": {
+    "jest": "^29.3.1",
+    "jest-junit": "^15.0.0",
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.3"
