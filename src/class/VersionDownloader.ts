@@ -6,20 +6,25 @@ import { DownloadCompleteEvent, Events, StartEvent, TickEvent } from '../interfa
 
 const BASEURL = "https://corretto.aws";
 
-axios.defaults.baseURL = BASEURL;
-
 export class Downloader {
-    static client = axios;
+    static client = axios.create({
+        baseURL: BASEURL
+    });
 
     static async download(binary:JavaBinary, downloadPath?:string) {
         
         let url = path.join(BASEURL, binary.resource);
         let filename = path.basename(url);
 
+        if(downloadPath && !fs.existsSync(downloadPath)) {
+            fs.mkdirSync(downloadPath, {
+                recursive: true
+            });
+        }
+
         let dpath = downloadPath ? path.join(downloadPath, filename) : path.join(process.cwd(), filename);
 
         let iDownload = await IncomingDownload.downloadJavaBinary(binary, binary.resource, dpath, filename);
-
         return iDownload;
     }
 }
@@ -67,7 +72,7 @@ export class IncomingDownload {
     }
 
     static async downloadJavaBinary(bin:JavaBinary, url:string, path:string, filename:string) {
-        return new IncomingDownload(await axios({
+        return new IncomingDownload(await Downloader.client({
             url,
             responseType: "stream"
         }), path, bin, filename);
