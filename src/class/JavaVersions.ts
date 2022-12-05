@@ -17,8 +17,7 @@ export class JavaVersion {
 
       return downloads.data;
     } catch (err) {
-      console.error(err);
-      return null;
+      throw err;
     }
   }
 
@@ -32,9 +31,9 @@ export class JavaVersion {
   }
 
   listArchs() {
-    let archs:any = {};
+    let archs: any = {};
 
-    for(let format of Object.keys(this.downloadLinks)) {
+    for (let format of Object.keys(this.downloadLinks)) {
       archs[format] = Object.keys(this.downloadLinks[format]);
     }
 
@@ -45,16 +44,14 @@ export class JavaVersion {
     return Object.keys(this.downloadLinks);
   }
 
-  listPlatformArchs(platform:PLATFORMS) {
-    if(!Object.keys(this.downloadLinks).includes(platform)) throw new Error(platform+" is an invalid platform!");
+  listPlatformArchs(platform: PLATFORMS) {
+    if (!Object.keys(this.downloadLinks).includes(platform))
+      throw new Error(platform + " is an invalid platform!");
 
     return Object.keys(this.downloadLinks[platform]);
   }
 
-  platform(
-    platform: EXTRAPLATFORMS,
-    arch: ARCHS
-  ) {
+  platform(platform: EXTRAPLATFORMS, arch: ARCHS) {
     switch (platform) {
       case "darwin":
       case "win":
@@ -74,4 +71,4 @@ export class JavaVersion {
 
 axios.defaults.baseURL = JavaVersion.rawUrlLastVersionReleases;
 
-export {axios};
+export { axios };
