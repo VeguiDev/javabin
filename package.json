@@ -23,9 +23,11 @@
   "keywords": [
     "java",
     "donwloader",
-    "client",
+    "cli",
     "binaries",
-    "nodejs"
+    "nodejs",
+    "amazon",
+    "corretto"
   ],
   "author": "VeguiDev",
   "license": "ISC",
@@ -37,8 +39,6 @@
     "@types/cli-progress": "^3.11.0",
     "@types/inquirer": "^9.0.3",
     "@types/jest": "^29.2.4",
-    "@types/progress": "^2.0.5",
-    "@types/terminal-kit": "^2.5.1",
     "inquirer": "^8.2.5",
     "jest": "^29.3.1",
     "jest-junit": "^15.0.0",
@@ -52,8 +52,6 @@
     "chalk": "^4.1.2",
     "cli-progress": "^3.11.2",
     "commander": "^9.4.1",
-    "ora": "^6.1.2",
-    "progress": "^2.0.3",
-    "terminal-kit": "^3.0.0"
+    "ora": "^6.1.2"
   }
 }
