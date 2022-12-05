@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="5" failures="0" errors="0" time="2.093">
-  <testsuite name="Checking if JavaVersion Instance works fine" errors="0" failures="0" skipped="0" timestamp="2022-12-05T12:04:41" time="1.978" tests="5">
+<testsuites name="jest tests" tests="15" failures="0" errors="0" time="4.203">
+  <testsuite name="Check if all methods of Platforms works" errors="0" failures="0" skipped="0" timestamp="2022-12-05T12:57:43" time="3.503" tests="5">
+    <testcase classname="Check if all methods of Platforms works ListJdkVersions method works" name="Check if all methods of Platforms works ListJdkVersions method works" time="0.001">
+    </testcase>
+    <testcase classname="Check if all methods of Platforms works ListJreVersions method works" name="Check if all methods of Platforms works ListJreVersions method works" time="0">
+    </testcase>
+    <testcase classname="Check if all methods of Platforms works ListVersions method works" name="Check if all methods of Platforms works ListVersions method works" time="0.001">
+    </testcase>
+    <testcase classname="Check if all methods of Platforms works check if jdk method works" name="Check if all methods of Platforms works check if jdk method works" time="0">
+    </testcase>
+    <testcase classname="Check if all methods of Platforms works check if jre method works" name="Check if all methods of Platforms works check if jre method works" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if all methods of JavaBinariesFormats works" errors="0" failures="0" skipped="0" timestamp="2022-12-05T12:57:43" time="3.494" tests="3">
+    <testcase classname="Check if all methods of JavaBinariesFormats works check if method listFormats works" name="Check if all methods of JavaBinariesFormats works check if method listFormats works" time="0.002">
+    </testcase>
+    <testcase classname="Check if all methods of JavaBinariesFormats works check if method format works" name="Check if all methods of JavaBinariesFormats works check if method format works" time="0">
+    </testcase>
+    <testcase classname="Check if all methods of JavaBinariesFormats works check if method format fails" name="Check if all methods of JavaBinariesFormats works check if method format fails" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Checking if JavaVersion Instance works fine" errors="0" failures="0" skipped="0" timestamp="2022-12-05T12:57:43" time="3.523" tests="5">
     <testcase classname="Checking if JavaVersion Instance works fine JavaVersion.getInstance returns JavaVersion" name="Checking if JavaVersion Instance works fine JavaVersion.getInstance returns JavaVersion" time="0.001">
     </testcase>
-    <testcase classname="Checking if JavaVersion Instance works fine checks if listPlatforms returns Array" name="Checking if JavaVersion Instance works fine checks if listPlatforms returns Array" time="0.017">
+    <testcase classname="Checking if JavaVersion Instance works fine checks if listPlatforms returns Array" name="Checking if JavaVersion Instance works fine checks if listPlatforms returns Array" time="0.036">
     </testcase>
     <testcase classname="Checking if JavaVersion Instance works fine check if method listArchs works" name="Checking if JavaVersion Instance works fine check if method listArchs works" time="0.001">
     </testcase>
     <testcase classname="Checking if JavaVersion Instance works fine check if method listPlatformArchs works" name="Checking if JavaVersion Instance works fine check if method listPlatformArchs works" time="0.001">
     </testcase>
     <testcase classname="Checking if JavaVersion Instance works fine check if method platform works" name="Checking if JavaVersion Instance works fine check if method platform works" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Check if all methods of JavaVersion works" errors="0" failures="0" skipped="0" timestamp="2022-12-05T12:57:43" time="3.755" tests="2">
+    <testcase classname="Check if all methods of JavaVersion works check if getDownloadUrl works" name="Check if all methods of JavaVersion works check if getDownloadUrl works" time="0.002">
+    </testcase>
+    <testcase classname="Check if all methods of JavaVersion works mock download function" name="Check if all methods of JavaVersion works mock download function" time="0.002">
     </testcase>
   </testsuite>
 </testsuites>

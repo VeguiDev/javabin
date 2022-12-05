@@ -7,9 +7,6 @@ import { DownloadCompleteEvent, Events, StartEvent, TickEvent } from '../interfa
 const BASEURL = "https://corretto.aws";
 
 export class Downloader {
-    static client = axios.create({
-        baseURL: BASEURL
-    });
 
     static async download(binary:JavaBinary, downloadPath?:string) {
         
@@ -72,8 +69,8 @@ export class IncomingDownload {
     }
 
     static async downloadJavaBinary(bin:JavaBinary, url:string, path:string, filename:string) {
-        return new IncomingDownload(await Downloader.client({
-            url,
+        return new IncomingDownload(await axios.get(url,{
+            baseURL: BASEURL,
             responseType: "stream"
         }), path, bin, filename);
     }
