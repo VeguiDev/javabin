@@ -49,6 +49,8 @@ If you want use the CLI use this command.
 npm i -g javabin
 ```
 
+*To get help of javabin CLI use command `javabin -h`*.
+
 ### Getting Started
 
 To use this librery you need to import it frist.
