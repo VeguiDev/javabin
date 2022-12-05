@@ -59,13 +59,20 @@ export class JavaVersion {
     return new JavaBinariesFormats(new Platform(this.downloadLinks.jmc[platform], "x64", platform), this.downloadLinks.jmc[platform].x64)
   }
 
-  platform(platform: EXTRAPLATFORMS, arch: ARCHS) {
+  platform(platform: EXTRAPLATFORMS|string, arch: ARCHS|string) {
     switch (platform) {
-      case "darwin":
       case "win":
       case "windows":
+      case "win32":
         return new Platform(this.downloadLinks["windows"], arch, "windows");
         break;
+      case "darwin":
+      case "macos":
+        return new Platform(
+          this.downloadLinks[platform.toLowerCase()],
+          arch,
+          "macos"
+        );
       default:
         return new Platform(
           this.downloadLinks[platform.toLowerCase()],

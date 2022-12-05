@@ -32,50 +32,61 @@ export class IncomingDownload {
         cb:(value:any) => void
     }[] = [];
 
-    writer:fs.WriteStream;
+    writer?:fs.WriteStream;
     path:string;
     javaBin:JavaBinary;
     totalLength:number;
     count:number;
+    url:string;
+    filename:string;
 
-    constructor({data, headers}:AxiosResponse, path:string, bin:JavaBinary, filename:string) {
-        
+    constructor(url:string, path:string, bin:JavaBinary, filename:string) {
+        this.url = url;
         this.path = path;
         this.javaBin = bin;
+        this.totalLength = -1;
+        this.count = 0;
+        this.filename = filename;
+    }
+
+    async start() {
+        let {data,headers} = await axios.get(this.url,{
+            baseURL: BASEURL,
+            responseType: "stream"
+        })
 
         this.totalLength = Number(headers["content-length"]);
-        this.count = 0;
 
-        this.writer = fs.createWriteStream(path)
+        this.writer = fs.createWriteStream(this.path)
         this.trigger("start", {
             total: this.totalLength,
-            javaBinary: this.javaBin
+            javaBinary: this.javaBin,
+            filename: this.filename
         });
         data.on("data", (chunk:Buffer) => {
             this.count+=chunk.length;
             this.trigger("tick", {
                 total: this.totalLength,
-                tick: this.count
+                tick: this.count,
+                percent: this.count/this.totalLength
             });
         });
+
         data.pipe(this.writer);
         data.on("close", () => {
             this.trigger("complete", {
-                filename,
-                path,
+                filename: this.filename,
+                path: this.path,
                 javaBinary: this.javaBin
             });
         });
     }
 
     static async downloadJavaBinary(bin:JavaBinary, url:string, path:string, filename:string) {
-        return new IncomingDownload(await axios.get(url,{
-            baseURL: BASEURL,
-            responseType: "stream"
-        }), path, bin, filename);
+        return new IncomingDownload(url, path, bin, filename);
     }
 
-    on(event_name:Events, cb:(value:any) => void):void {
+    on(event_name:Events, cb:(value:any) => void) {
 
         this.events.push({
             eventName: event_name,

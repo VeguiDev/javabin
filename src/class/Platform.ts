@@ -6,7 +6,7 @@ export class Platform {
   arch: ARCHS;
 
   private json: any;
-  constructor(json: any, arch: ARCHS, plat: PLATFORMS) {
+  constructor(json: any, arch: ARCHS|string, plat: PLATFORMS|string) {
     this.json = json;
     this.arch = arch;
     this.platform = plat;
