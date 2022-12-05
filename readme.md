@@ -4,7 +4,7 @@
 ![LICENSE](https://img.shields.io/npm/l/javabin)
 ![BUILD](https://img.shields.io/github/workflow/status/FotoSave/javabin/Node.js%20CI)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/be5fbbf3bc2e4607b80c11785defb184)](https://www.codacy.com/gh/FotoSave/javabin/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=FotoSave/javabin&amp;utm_campaign=Badge_Grade)
-
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/be5fbbf3bc2e4607b80c11785defb184)](https://www.codacy.com/gh/FotoSave/javabin/dashboard?utm_source=github.com&utm_medium=referral&utm_content=FotoSave/javabin&utm_campaign=Badge_Coverage)
 
 JavaBin is a library that can be used to download all Amazon Corretto resources from Node.js.
 
