@@ -17,23 +17,23 @@ export function clist(data: any | any[], tspaces?: number): string {
     for (let f of data) {
       if (!Array.isArray(f) && typeof f != "object") {
         txt.push(
-          drawSpaces(nspaces) + chalk.yellow("- ") + chalk.blueBright(f) + "\n"
+          drawSpaces(nspaces) + chalk.yellow("- ") + chalk.blueBright(f)
         );
       } else {
-        txt.push(drawSpaces(nspaces) +"\n"+ clist(f, nspaces + 1) + "\n");
+        txt.push(drawSpaces(nspaces) +"\n"+ clist(f, nspaces + 1));
       }
     }
   } else if(typeof data == "object") {
     for(let k of Object.keys(data)) {
 
         if(!Array.isArray(data[k]) && typeof data[k] != "object") {
-            txt.push(drawSpaces(nspaces)+chalk.yellow("- ")+chalk.blackBright(k+": ")+chalk.blueBright(data[k])+"\n");
+            txt.push(drawSpaces(nspaces)+chalk.yellow("- ")+chalk.blackBright(k+": ")+chalk.blueBright(data[k]));
         } else {
-            txt.push(drawSpaces(nspaces)+chalk.blackBright(k+": ")+"\n"+clist(data[k], nspaces+1)+"\n");
+            txt.push(drawSpaces(nspaces)+chalk.blackBright(k+": ")+"\n"+clist(data[k], nspaces+1));
         }
 
     }
   }
-
-  return txt.join("");
+  
+  return txt.join("\n");
 }
