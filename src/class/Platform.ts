@@ -1,12 +1,12 @@
-import { ARCHS, EXTRAPLATFORMS, PLATFORMS } from "../interfaces/JavaVersions";
+import { ARCHS, PLATFORMS, JavaArchitectures } from "../interfaces/JavaVersions";
 import { JavaBinariesFormats } from "./JavaBinariesFormats";
 
 export class Platform {
   platform: PLATFORMS;
   arch: ARCHS;
 
-  private json: any;
-  constructor(json: any, arch: ARCHS|string, plat: PLATFORMS|string) {
+  private json: JavaArchitectures;
+  constructor(json: JavaArchitectures, arch: ARCHS|string, plat: PLATFORMS|string) {
     this.json = json;
     this.arch = arch;
     this.platform = plat;
@@ -32,7 +32,7 @@ export class Platform {
   jdk(
     version: "8" | "11" | "15" | "16" | "17" | "18" | "19" | string | number
   ) {
-    let formats = this.json[this.arch].jdk[version];
+    const formats = this.json[this.arch].jdk[version];
 
     if (!formats) throw new Error("Invalid Version");
     return new JavaBinariesFormats(this, formats);
@@ -41,7 +41,7 @@ export class Platform {
   jre(
     version: "8" | "11" | "15" | "16" | "17" | "18" | "19" | string | number
   ) {
-    let formats = this.json[this.arch].jre[version];
+    const formats = this.json[this.arch].jre[version];
 
     if (!formats) throw new Error("Invalid Version");
     return new JavaBinariesFormats(this, formats);

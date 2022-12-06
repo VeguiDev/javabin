@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import path from 'path';
 import fs from 'fs';
 import { JavaBinary } from './JavaBinary';
@@ -10,8 +10,8 @@ export class Downloader {
 
     static async download(binary:JavaBinary, downloadPath?:string) {
         
-        let url = path.join(BASEURL, binary.resource);
-        let filename = path.basename(url);
+        const url = path.join(BASEURL, binary.resource);
+        const filename = path.basename(url);
 
         if(downloadPath && !fs.existsSync(downloadPath)) {
             fs.mkdirSync(downloadPath, {
@@ -19,9 +19,9 @@ export class Downloader {
             });
         }
 
-        let dpath = downloadPath ? path.join(downloadPath, filename) : path.join(process.cwd(), filename);
+        const dpath = downloadPath ? path.join(downloadPath, filename) : path.join(process.cwd(), filename);
 
-        let iDownload = await IncomingDownload.downloadJavaBinary(binary, binary.resource, dpath, filename);
+        const iDownload = await IncomingDownload.downloadJavaBinary(binary, binary.resource, dpath, filename);
         return iDownload;
     }
 }
@@ -29,7 +29,7 @@ export class Downloader {
 export class IncomingDownload {
     private events:{
         eventName:string,
-        cb:(value:any) => void
+        cb:(value:(TickEvent|DownloadCompleteEvent|StartEvent)) => void
     }[] = [];
 
     writer?:fs.WriteStream;
@@ -50,7 +50,7 @@ export class IncomingDownload {
     }
 
     async start() {
-        let {data,headers} = await axios.get(this.url,{
+        const {data,headers} = await axios.get(this.url,{
             baseURL: BASEURL,
             responseType: "stream"
         })
@@ -85,8 +85,8 @@ export class IncomingDownload {
     static async downloadJavaBinary(bin:JavaBinary, url:string, path:string, filename:string) {
         return new IncomingDownload(url, path, bin, filename);
     }
-
-    on(event_name:Events, cb:(value:any) => void) {
+    
+    on(event_name:("tick"|"complete"|"start"), cb:(val?:any) => void):void {
 
         this.events.push({
             eventName: event_name,

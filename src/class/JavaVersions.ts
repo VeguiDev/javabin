@@ -1,29 +1,29 @@
 import axios from "axios";
-import { ARCHS, EXTRAPLATFORMS, PLATFORMS } from "../interfaces/JavaVersions";
+import { ARCHS, EXTRAPLATFORMS, JavaArchitectures, JavaDownloadLinks, PLATFORMS } from "../interfaces/JavaVersions";
 import { JavaBinariesFormats } from "./JavaBinariesFormats";
 import { Platform } from "./Platform";
 
 export class JavaVersion {
   static rawUrlLastVersionReleases =
     "https://raw.githubusercontent.com/corretto/corretto-downloads/main/latest_links/indexmap_with_checksum.json";
-  downloadLinks: any;
+  downloadLinks: JavaDownloadLinks;
 
-  constructor(downloadlinks: any) {
+  constructor(downloadlinks: JavaDownloadLinks) {
     this.downloadLinks = downloadlinks;
   }
 
   private static async fetchDownloadsLinks() {
     try {
-      let downloads = await axios.get(this.rawUrlLastVersionReleases);
+      const downloads = await axios.get(this.rawUrlLastVersionReleases);
 
       return downloads.data;
     } catch (err) {
-      throw err;
+      throw new Error("Can't get raw data from github");
     }
   }
 
   static async getInstance() {
-    let downlink = await this.fetchDownloadsLinks();
+    const downlink = await this.fetchDownloadsLinks();
     if (!downlink)
       throw new Error(
         "Can't get latest Amazon Corretto from Github, Check your internet connection"
@@ -32,9 +32,11 @@ export class JavaVersion {
   }
 
   listArchs() {
-    let archs: any = {};
+    const archs: {
+      [value:string]: ARCHS[]
+    } = {};
 
-    for (let format of Object.keys(this.downloadLinks)) {
+    for (const format of Object.keys(this.downloadLinks)) {
       archs[format] = Object.keys(this.downloadLinks[format]);
     }
 
@@ -56,7 +58,7 @@ export class JavaVersion {
    * Returns JMC binaries (Only x64)
    */
   JMC(platform: PLATFORMS) {
-    return new JavaBinariesFormats(new Platform(this.downloadLinks.jmc[platform], "x64", platform), this.downloadLinks.jmc[platform].x64)
+    return new JavaBinariesFormats(new Platform(this.downloadLinks.jmc[platform], "x64", platform), this.downloadLinks.jmc[platform].x64);
   }
 
   platform(platform: EXTRAPLATFORMS|string, arch: ARCHS|string) {

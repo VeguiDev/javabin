@@ -1,7 +1,7 @@
 import chalk from "chalk";
 
 function drawSpaces(n: number) {
-  let spaces = [];
+  const spaces = [];
   for (let i = 0; i < n; i++) {
     spaces.push(" ");
   }
@@ -9,12 +9,12 @@ function drawSpaces(n: number) {
 }
 
 export function clist(data: any | any[], tspaces?: number): string {
-  let txt = [];
+  const txt = [];
 
-  let nspaces = tspaces || 0;
+  const nspaces = tspaces || 0;
 
   if (Array.isArray(data)) {
-    for (let f of data) {
+    for (const f of data) {
       if (!Array.isArray(f) && typeof f != "object") {
         txt.push(
           drawSpaces(nspaces) + chalk.yellow("- ") + chalk.blueBright(f)
@@ -24,7 +24,7 @@ export function clist(data: any | any[], tspaces?: number): string {
       }
     }
   } else if(typeof data == "object") {
-    for(let k of Object.keys(data)) {
+    for(const k of Object.keys(data)) {
 
         if(!Array.isArray(data[k]) && typeof data[k] != "object") {
             txt.push(drawSpaces(nspaces)+chalk.yellow("- ")+chalk.blackBright(k+": ")+chalk.blueBright(data[k]));

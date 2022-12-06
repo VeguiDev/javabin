@@ -8,10 +8,10 @@ const parentCommand = new Command("list");
 const cmd = new Command("platform");
 
 cmd.action(async () => {
-  let java = await JavaVersion.getInstance();
+  const java = await JavaVersion.getInstance();
   console.log(chalk.blue("Supported Platforms:"));
 
-  let arr = java.listPlatforms();
+  const arr = java.listPlatforms();
 
   if (arr.includes("jmc")) {
     arr.splice(
@@ -32,12 +32,12 @@ cmd.addCommand(
     .argument("[version]", "Optional | jdk/jre release version argument")
     .argument("[format]", "Optional |jdk/jre release version format argument")
     .action(async (plat, arch, rel, ver, format) => {
-      let java = await JavaVersion.getInstance();
+      const java = await JavaVersion.getInstance();
 
       if (!plat) {
         console.log(chalk.blue("Supported Platforms & Architectures:"));
 
-        let arr = java.listArchs();
+        const arr = java.listArchs();
 
         if (arr.jmc) {
           delete arr.jmc;
@@ -46,7 +46,7 @@ cmd.addCommand(
         console.log(clist(arr, 1));
       } else if (!arch) {
         try {
-          let arr = java.listPlatformArchs(plat);
+          const arr = java.listPlatformArchs(plat);
 
           console.log(chalk.blue("Supported Architectures for " + plat + ":"));
           console.log(clist(arr, 1));
@@ -55,9 +55,12 @@ cmd.addCommand(
         }
       } else {
         try {
-          let platx = java.platform(plat, arch);
+          const platx = java.platform(plat, arch);
 
-          let arr: any = platx.listVersions();
+          let arr:({
+            jdk:string[],
+            jre:string[]
+          }|string[]) = platx.listVersions();
 
           if (rel) {
             if (rel.toLowerCase() == "jre") {

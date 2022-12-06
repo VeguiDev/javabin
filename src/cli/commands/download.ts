@@ -6,8 +6,9 @@ import inquirer from "inquirer";
 import cliProgress from "cli-progress";
 import { JavaBinariesFormats } from "../../class/JavaBinariesFormats";
 import chalk from "chalk";
+import { FORMATS } from "../../interfaces/JavaVersions";
 
-let cmd = new Command("download");
+const cmd = new Command("download");
 
 cmd.aliases(["down", "d"]);
 cmd.argument("<version>", "Version of java you want download.");
@@ -17,13 +18,13 @@ cmd.option("-F, --format <format>", "Set the format");
 cmd.option("-O, --path <path>", "Set the download path");
 
 cmd.action(async (ver, opts) => {
-  let java = await JavaVersion.getInstance();
+  const java = await JavaVersion.getInstance();
 
-  let platformSUPPORTED = ["darwin", "win32", "linux", "win", "windows", "mac", "macos"];
+  const platformSUPPORTED = ["darwin", "win32", "linux", "win", "windows", "mac", "macos"];
 
-  let archSUPPORTED = ["x64", "x86", "arm", "aarch64", "arm64"];
+  const archSUPPORTED = ["x64", "x86", "arm", "aarch64", "arm64"];
 
-  let platform = opts.platform || os.platform();
+  const platform = opts.platform || os.platform();
 
   if (opts.platform && !opts.arch) {
     if (!platformSUPPORTED.includes(opts.platform)) {
@@ -33,9 +34,9 @@ cmd.action(async (ver, opts) => {
       return;
     }
 
-    let archs = java.listPlatformArchs(opts.platform);
+    const archs = java.listPlatformArchs(opts.platform);
 
-    let par = await inquirer.prompt({
+    const par = await inquirer.prompt({
       type: "list",
       name: "arch",
       message: "What architecture you prefer?",
@@ -61,7 +62,7 @@ cmd.action(async (ver, opts) => {
     return;
   }
 
-  let arch = opts.arch || os.arch();
+  const arch = opts.arch || os.arch();
 
   let archx: string;
 
@@ -111,14 +112,17 @@ cmd.action(async (ver, opts) => {
       break;
   }
 
-  let versions = platf.listVersions();
+  const versions = platf.listVersions();
 
   let disponibleJRE = false;
 
   if (versions.jre.includes(ver)) {
     disponibleJRE = true;
   }
-  let rel: any;
+
+  let rel: {
+    release?: ("JRE"|"JDK"|string)
+  } = {};
 
   if (disponibleJRE) {
     rel = await inquirer.prompt({
@@ -134,15 +138,17 @@ cmd.action(async (ver, opts) => {
     return;
   }
 
-  let JavaFormats: JavaBinariesFormats;
+  let JavaFormats: JavaBinariesFormats = platf.jdk(ver);
 
-  if (disponibleJRE && rel.release == "JRE") {
-    JavaFormats = platf.jre(ver);
-  } else {
-    JavaFormats = platf.jdk(ver);
+  if (disponibleJRE) {
+    if(rel && rel.release == "JRE") {
+      JavaFormats = platf.jre(ver); 
+    }
   }
 
-  let q:any;
+  let q: {
+    format?:FORMATS
+  } = {};
 
   if (!opts.format) {
     q = await inquirer.prompt({
@@ -160,17 +166,18 @@ cmd.action(async (ver, opts) => {
     return;
   }
 
-  let JavaBinary = JavaFormats.format(opts.format || q.format);
+  const JavaBinary = JavaFormats.format(opts.format || q.format);
 
-  let progressBar = new cliProgress.SingleBar(
+  const progressBar = new cliProgress.SingleBar(
       {},
       cliProgress.Presets.shades_classic
-    ),
-    total = 0;
+    );
+
+  let total = 0;
 
   if(!opts.path) console.log(chalk.yellow("You did not specify a download path, it will download in the current working directory!"));
 
-  let iDownload = await JavaBinary.download(opts.path);
+  const iDownload = await JavaBinary.download(opts.path);
 
   iDownload.on("start", (e) => {
     total = Number(e.total);

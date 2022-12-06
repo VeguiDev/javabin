@@ -1,12 +1,12 @@
-import { PLATFORMS } from "../interfaces/JavaVersions";
+import { FormatJSON } from "../interfaces/JavaVersions";
 import { JavaBinary } from "./JavaBinary";
 import { Platform } from "./Platform";
 
 export class JavaBinariesFormats {
-    private formats:any;
+    private formats:FormatJSON;
     private parent:Platform;
 
-    constructor(parent:Platform, formats:any) {
+    constructor(parent:Platform, formats:FormatJSON) {
         this.formats = formats;
         this.parent = parent;
     }
@@ -18,7 +18,7 @@ export class JavaBinariesFormats {
     format(format:string) {
         if(!Object.keys(this.formats).includes(format)) throw new Error("Invalid format or not avaible");
 
-        let bin = this.formats[format];
+        const bin = this.formats[format];
 
         return new JavaBinary(
             this.parent.platform,

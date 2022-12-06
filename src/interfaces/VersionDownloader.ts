@@ -24,3 +24,9 @@ export interface DownloadCompleteEvent {
 
 }
 export type EventCallback = (TickEvent|DownloadCompleteEvent);
+
+
+export type CallbackETICK = (value?:TickEvent) => void;
+export type CallbackECOMPLETE = (value?:DownloadCompleteEvent) => void;
+export type CallbackESTART = (value?:StartEvent) => void;
+export type CallbackEALL = CallbackETICK|CallbackECOMPLETE|CallbackESTART;
