@@ -7,6 +7,7 @@ import cliProgress from "cli-progress";
 import { JavaBinariesFormats } from "../../class/JavaBinariesFormats";
 import chalk from "chalk";
 import { FORMATS } from "../../interfaces/JavaVersions";
+import { prDebug } from "../util/log";
 
 const cmd = new Command("download");
 
@@ -25,6 +26,8 @@ cmd.action(async (ver, opts) => {
   const archSUPPORTED = ["x64", "x86", "arm", "aarch64", "arm64"];
 
   const platform = opts.platform || os.platform();
+  
+  prDebug("Current platform: "+platform);
 
   if (opts.platform && !opts.arch) {
     if (!platformSUPPORTED.includes(opts.platform)) {
@@ -46,7 +49,7 @@ cmd.action(async (ver, opts) => {
     opts.arch = par.arch;
   }
 
-  if (!archSUPPORTED.includes(opts.arch)) {
+  if (opts.arch && !archSUPPORTED.includes(opts.arch)) {
     console.log(
       chalk.red("Your architecture is not supported for Amazon Corretto.")
     );
@@ -63,6 +66,8 @@ cmd.action(async (ver, opts) => {
   }
 
   const arch = opts.arch || os.arch();
+
+  prDebug("Current architecture: "+opts.arch);
 
   let archx: string;
 
