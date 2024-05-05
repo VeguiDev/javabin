@@ -1,5 +1,11 @@
 import axios from "axios";
-import { ARCHS, EXTRAPLATFORMS, JavaArchitectures, JavaDownloadLinks, PLATFORMS } from "../interfaces/JavaVersions";
+import {
+  ARCHS,
+  EXTRAPLATFORMS,
+  JavaArchitectures,
+  JavaDownloadLinks,
+  PLATFORMS,
+} from "../interfaces/JavaVersions";
 import { JavaBinariesFormats } from "./JavaBinariesFormats";
 import { Platform } from "./Platform";
 
@@ -33,7 +39,7 @@ export class JavaVersion {
 
   listArchs() {
     const archs: {
-      [value:string]: ARCHS[]
+      [value: string]: ARCHS[];
     } = {};
 
     for (const format of Object.keys(this.downloadLinks)) {
@@ -58,10 +64,13 @@ export class JavaVersion {
    * Returns JMC binaries (Only x64)
    */
   JMC(platform: PLATFORMS) {
-    return new JavaBinariesFormats(new Platform(this.downloadLinks.jmc[platform], "x64", platform), this.downloadLinks.jmc[platform].x64);
+    return new JavaBinariesFormats(
+      new Platform(this.downloadLinks.jmc[platform], "x64", platform),
+      this.downloadLinks.jmc[platform].x64
+    );
   }
 
-  platform(platform: EXTRAPLATFORMS|string, arch: ARCHS|string) {
+  platform(platform: EXTRAPLATFORMS | string, arch: ARCHS | string) {
     switch (platform) {
       case "win":
       case "windows":
@@ -86,6 +95,8 @@ export class JavaVersion {
   }
 }
 
-axios.defaults.baseURL = JavaVersion.rawUrlLastVersionReleases;
+export const axiosCl = axios.create({
+  baseURL: JavaVersion.rawUrlLastVersionReleases,
+});
 
 export { axios };
