@@ -1,15 +1,15 @@
 # JavaBin
+
 ![NPM VERSION](https://img.shields.io/npm/v/javabin?style=flat)
 ![DOWNLOADS](https://img.shields.io/npm/dm/javabin.svg?style=flat)
 ![LICENSE](https://img.shields.io/npm/l/javabin)
 ![BUILD](https://img.shields.io/github/actions/workflow/status/FotoSave/javabin/node.yml?branch=master)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/be5fbbf3bc2e4607b80c11785defb184)](https://www.codacy.com/gh/FotoSave/javabin/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=FotoSave/javabin&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/be5fbbf3bc2e4607b80c11785defb184)](https://www.codacy.com/gh/FotoSave/javabin/dashboard?utm_source=github.com&utm_medium=referral&utm_content=FotoSave/javabin&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/be5fbbf3bc2e4607b80c11785defb184)](https://www.codacy.com/gh/FotoSave/javabin/dashboard?utm_source=github.com&utm_medium=referral&utm_content=FotoSave/javabin&utm_campaign=Badge_Coverage)
 
 JavaBin is a library that can be used to download all Amazon Corretto resources from Node.js.
 
 **Table of Contents:**
-
 
 - [JavaBin](#javabin)
   - [Documentation](#documentation)
@@ -38,7 +38,6 @@ JavaBin is a library that can be used to download all Amazon Corretto resources 
         - [Tick](#tick)
         - [Complete](#complete)
 
-
 ## Documentation
 
 ### Install
@@ -55,7 +54,7 @@ If you want use the CLI use this command.
 npm i -g javabin
 ```
 
-*To get help of javabin CLI use command `javabin -h`*.
+_To get help of javabin CLI use command `javabin -h`_.
 
 ### Getting Started
 
@@ -129,22 +128,22 @@ JavaVersion.listArchs();
 
 **Parameters:**
 
-- Platform: *The name of platform*.
-- Arch: *The architecture you need.*
+- Platform: _The name of platform_.
+- Arch: _The architecture you need._
 
 **Returns:**
 
-*This method return an Platform class instance.*
+_This method return an Platform class instance._
 
 ```ts
-JavaVersion.platform("linux","x64");
+JavaVersion.platform("linux", "x64");
 ```
 
 ### Platform Class
 
 #### List JRE versions
 
-*This method list all JRE versions that are available.*
+_This method list all JRE versions that are available._
 
 ```ts
 JavaVersion.platform("linux", "x64").listJreVersions();
@@ -152,7 +151,7 @@ JavaVersion.platform("linux", "x64").listJreVersions();
 
 #### List JDK versions
 
-*This method list all JDK versions that are available.*
+_This method list all JDK versions that are available._
 
 ```ts
 JavaVersion.platform("linux", "x64").listJdkVersions();
@@ -160,11 +159,11 @@ JavaVersion.platform("linux", "x64").listJdkVersions();
 
 #### List Versions
 
-*This method list all versions that are available.*
+_This method list all versions that are available._
 
 **Returns:**
 
-*An object with two keys (JRE, JDK) and in each of its available versions.*
+_An object with two keys (JRE, JDK) and in each of its available versions._
 
 **Example:**
 
@@ -181,34 +180,34 @@ JavaVersion.platform("linux", "x64").listVersions();
 
 #### Get JRE version
 
-*To get an JRE version you can use this method.*
+_To get an JRE version you can use this method._
 
 **Parameters:**
 
-- Version: *The version you want get.*
+- Version: _The version you want get._
 
 **Returns:**
 
-*This method return an instance of JavaBinariesFormats.*
+_This method return an instance of JavaBinariesFormats._
 
 ```ts
-JavaVersion.platform("windows","x64").jre(8);
+JavaVersion.platform("windows", "x64").jre(8);
 ```
 
 #### Get JDK version
 
-*To get an JDK version you can use this method.*
+_To get an JDK version you can use this method._
 
 **Parameters:**
 
-- Version: *The version you want get.*
+- Version: _The version you want get._
 
 **Returns:**
 
-*This method return an instance of JavaBinariesFormats.*
+_This method return an instance of JavaBinariesFormats._
 
 ```ts
-JavaVersion.platform("windows","x64").jdk(11);
+JavaVersion.platform("windows", "x64").jdk(11);
 ```
 
 ### JavaBinariesFomarts Class
@@ -217,11 +216,11 @@ This class is used to select the format of JavaBinary.
 
 #### List Formats
 
-*This method is used to list all formats for JavaBinary*.
+_This method is used to list all formats for JavaBinary_.
 
 **Returns:**
 
-*Returns array with all formats.*
+_Returns array with all formats._
 
 **Example:**
 
@@ -237,11 +236,11 @@ JavaVersion.platform("win", "x64").jdk(11).listFormats();
 
 #### Get JavaBinary for format
 
-*This method is used to get an format for JavaVersion*.
+_This method is used to get an format for JavaVersion_.
 
 **Returns:**
 
-*Returns an instance of JavaBinary.*
+_Returns an instance of JavaBinary._
 
 ```ts
 JavaVersion.platform("win", "x64").jdk(11).format("zip");
@@ -253,17 +252,17 @@ JavaVersion.platform("win", "x64").jdk(11).format("zip");
 
 Method **getDownloadUrl**:
 
-*This method returns the download url for the JavaBinary.*
+_This method returns the download url for the JavaBinary._
 
 #### Download
 
 Method **download**:
 
-*This method download return an IncomingDownload.*
+_This method download return an IncomingDownload._
 
 **Parameters:**
 
-- downloadPath `optional`: *The path where the binary is downloaded.* If you not specify an path will be downloaded in the current working directory.
+- downloadPath `optional`: _The path where the binary is downloaded._ If you not specify an path will be downloaded in the current working directory.
 
 ### IncomingDownload
 
@@ -294,8 +293,8 @@ Object:
 
 ```json
 {
-    "total": 5616424,
-    "tick": 15852
+  "total": 5616424,
+  "tick": 15852
 }
 ```
 
