@@ -1,42 +1,37 @@
 # JavaBin
 
-![NPM VERSION](https://img.shields.io/npm/v/javabin?style=flat)
-![DOWNLOADS](https://img.shields.io/npm/dm/javabin.svg?style=flat)
-![LICENSE](https://img.shields.io/npm/l/javabin)
-![BUILD](https://img.shields.io/github/actions/workflow/status/FotoSave/javabin/node.yml?branch=master)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/be5fbbf3bc2e4607b80c11785defb184)](https://www.codacy.com/gh/FotoSave/javabin/dashboard?utm_source=github.com&utm_medium=referral&utm_content=FotoSave/javabin&utm_campaign=Badge_Grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/be5fbbf3bc2e4607b80c11785defb184)](https://www.codacy.com/gh/FotoSave/javabin/dashboard?utm_source=github.com&utm_medium=referral&utm_content=FotoSave/javabin&utm_campaign=Badge_Coverage)
+![NPM VERSION](https://img.shields.io/npm/v/javabin?style=flat) ![DOWNLOADS](https://img.shields.io/npm/dm/javabin.svg?style=flat) ![LICENSE](https://img.shields.io/npm/l/javabin) ![BUILD](https://img.shields.io/github/workflow/status/FotoSave/javabin/Node.js%20CI) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/be5fbbf3bc2e4607b80c11785defb184)](https://www.codacy.com/gh/FotoSave/javabin/dashboard?utm\_source=github.com\&utm\_medium=referral\&utm\_content=FotoSave/javabin\&utm\_campaign=Badge\_Grade) [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/be5fbbf3bc2e4607b80c11785defb184)](https://www.codacy.com/gh/FotoSave/javabin/dashboard?utm\_source=github.com\&utm\_medium=referral\&utm\_content=FotoSave/javabin\&utm\_campaign=Badge\_Coverage)
 
 JavaBin is a library that can be used to download all Amazon Corretto resources from Node.js.
 
 **Table of Contents:**
 
-- [JavaBin](#javabin)
-  - [Documentation](#documentation)
-    - [Install](#install)
-    - [Getting Started](#getting-started)
-    - [JavaVersion Class](#javaversion-class)
-      - [List Platforms](#list-platforms)
-      - [List Architectures of Platform](#list-architectures-of-platform)
-      - [List Architectures](#list-architectures)
-    - [Get Platform](#get-platform)
-    - [Platform Class](#platform-class)
-      - [List JRE versions](#list-jre-versions)
-      - [List JDK versions](#list-jdk-versions)
-      - [List Versions](#list-versions)
-      - [Get JRE version](#get-jre-version)
-      - [Get JDK version](#get-jdk-version)
-    - [JavaBinariesFomarts Class](#javabinariesfomarts-class)
-      - [List Formats](#list-formats)
-      - [Get JavaBinary for format](#get-javabinary-for-format)
-    - [JavaBinary class](#javabinary-class)
-      - [GetDownloadURL](#getdownloadurl)
-      - [Download](#download)
-    - [IncomingDownload](#incomingdownload)
-      - [Events](#events)
-        - [Start](#start)
-        - [Tick](#tick)
-        - [Complete](#complete)
+* [JavaBin](broken-reference)
+  * [Documentation](broken-reference)
+    * [Install](broken-reference)
+    * [Getting Started](broken-reference)
+    * [JavaVersion Class](broken-reference)
+      * [List Platforms](broken-reference)
+      * [List Architectures of Platform](broken-reference)
+      * [List Architectures](broken-reference)
+    * [Get Platform](broken-reference)
+    * [Platform Class](broken-reference)
+      * [List JRE versions](broken-reference)
+      * [List JDK versions](broken-reference)
+      * [List Versions](broken-reference)
+      * [Get JRE version](broken-reference)
+      * [Get JDK version](broken-reference)
+    * [JavaBinariesFomarts Class](broken-reference)
+      * [List Formats](broken-reference)
+      * [Get JavaBinary for format](broken-reference)
+    * [JavaBinary class](broken-reference)
+      * [GetDownloadURL](broken-reference)
+      * [Download](broken-reference)
+    * [IncomingDownload](broken-reference)
+      * [Events](broken-reference)
+        * [Start](broken-reference)
+        * [Tick](broken-reference)
+        * [Complete](broken-reference)
 
 ## Documentation
 
@@ -92,7 +87,7 @@ _This method returns array all platforms._
 
 **Parameters:**
 
-- platform: _The name of the platform from which you want to obtain its architectures._
+* platform: _The name of the platform from which you want to obtain its architectures._
 
 **Returns:**
 
@@ -128,15 +123,15 @@ JavaVersion.listArchs();
 
 **Parameters:**
 
-- Platform: _The name of platform_.
-- Arch: _The architecture you need._
+* Platform: _The name of platform_.
+* Arch: _The architecture you need._
 
 **Returns:**
 
 _This method return an Platform class instance._
 
 ```ts
-JavaVersion.platform("linux", "x64");
+JavaVersion.platform("linux","x64");
 ```
 
 ### Platform Class
@@ -184,14 +179,14 @@ _To get an JRE version you can use this method._
 
 **Parameters:**
 
-- Version: _The version you want get._
+* Version: _The version you want get._
 
 **Returns:**
 
 _This method return an instance of JavaBinariesFormats._
 
 ```ts
-JavaVersion.platform("windows", "x64").jre(8);
+JavaVersion.platform("windows","x64").jre(8);
 ```
 
 #### Get JDK version
@@ -200,14 +195,14 @@ _To get an JDK version you can use this method._
 
 **Parameters:**
 
-- Version: _The version you want get._
+* Version: _The version you want get._
 
 **Returns:**
 
 _This method return an instance of JavaBinariesFormats._
 
 ```ts
-JavaVersion.platform("windows", "x64").jdk(11);
+JavaVersion.platform("windows","x64").jdk(11);
 ```
 
 ### JavaBinariesFomarts Class
@@ -262,13 +257,13 @@ _This method download return an IncomingDownload._
 
 **Parameters:**
 
-- downloadPath `optional`: _The path where the binary is downloaded._ If you not specify an path will be downloaded in the current working directory.
+* downloadPath `optional`: _The path where the binary is downloaded._ If you not specify an path will be downloaded in the current working directory.
 
 ### IncomingDownload
 
 #### Events
 
-##### Start
+**Start**
 
 This event is triggered when the download starts.
 
@@ -283,7 +278,7 @@ Object:
 }
 ```
 
-##### Tick
+**Tick**
 
 This event is triggered when the download process advances.
 
@@ -293,12 +288,12 @@ Object:
 
 ```json
 {
-  "total": 5616424,
-  "tick": 15852
+    "total": 5616424,
+    "tick": 15852
 }
 ```
 
-##### Complete
+**Complete**
 
 This event is triggered when the download process ends.
 
